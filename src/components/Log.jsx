@@ -1,11 +1,16 @@
-export default function Log({ turns }) {
-  return (
-    <ol id="log">
-      {turns.map((turn) => (
-        <li key={`${turn.square.row}${turn.square.col}`}>
-          {turn.player} selected {turn.square.row + 1},{turn.square.col + 1}
-        </li>
-      ))}
-    </ol>
-  );
-}
+const Log = ({ turns, players }) => {
+  const logs = turns.map((turn) => {
+    const { square, player } = turn;
+    const { row, col } = square;
+
+    return (
+      <li key={`${row}${col}`}>
+        {players[player]} selected row {row + 1}, col {col + 1}
+      </li>
+    );
+  });
+
+  return <ol id="log">{logs}</ol>;
+};
+
+export default Log;
