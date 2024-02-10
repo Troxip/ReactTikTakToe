@@ -1,12 +1,21 @@
 import { useState } from "react";
 
-export default function Player({ initialName, symbol, isActive }) {
+export default function Player({
+  initialName,
+  symbol,
+  isActive,
+  onChangeName,
+}) {
   const [playerName, setPlayerName] = useState(initialName);
   const [isEditing, setIsEditing] = useState(false);
 
   function handleEditClick() {
     setIsEditing((editing) => !editing);
     isEditing && setPlayerName(playerName);
+
+    if (isEditing) {
+      onChangeName(symbol, playerName);
+    }
   }
 
   function handleChange(e) {
@@ -17,6 +26,9 @@ export default function Player({ initialName, symbol, isActive }) {
     if (e.key === "Enter") {
       handleChange;
       setIsEditing(false);
+      if (isEditing) {
+        onChangeName(symbol, playerName);
+      }
     }
   }
 
